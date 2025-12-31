@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-navy: #002B5B;
+  --brand-red: #FD201D;
+  --brand-cyan: #00BCD4;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
