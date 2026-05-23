@@ -1,102 +1,32 @@
-'use client';
-
-import { motion } from 'framer-motion';
-
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-navy via-gray-900 to-black text-white">
-      {/* Hero */}
-      <section className="relative py-20 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-bold mb-6"
-          >
-            <span className="text-brand-cyan">CardVault</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl md:text-2xl text-gray-300 mb-8"
-          >
-            Trading Cards Management Platform
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-gray-400 max-w-2xl mx-auto mb-10"
-          >
-            Track your collection, monitor values, get AI-powered insights, and connect with collectors worldwide.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex gap-4 justify-center"
-          >
-            <a href="/dashboard" className="px-8 py-4 bg-brand-cyan text-brand-navy font-semibold rounded-lg hover:bg-cyan-400 transition">
-              Start Collecting
-            </a>
-            <a href="#features" className="px-8 py-4 border border-white/30 rounded-lg hover:bg-white/10 transition">
-              Learn More
-            </a>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section id="features" className="py-20 px-6 bg-black/30">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Everything You Need</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { title: 'Track Collection', desc: 'Catalog every item with photos, grades, and values', icon: '📦' },
-              { title: 'Value Tracking', desc: 'Monitor market prices and your collection worth', icon: '📈' },
-              { title: 'AI Assistant', desc: 'Javari AI helps identify, grade, and price items', icon: '🤖' },
-              { title: 'Marketplace', desc: 'Buy, sell, and trade with verified collectors', icon: '🛒' },
-              { title: 'Grading', desc: 'Track PSA, CGC, PCGS and other grades', icon: '⭐' },
-              { title: 'Community', desc: 'Connect with collectors who share your passion', icon: '👥' },
-            ].map((f, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white/5 rounded-xl p-6 border border-white/10"
-              >
-                <div className="text-4xl mb-4">{f.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{f.title}</h3>
-                <p className="text-gray-400">{f.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Start Your Collection Today</h2>
-          <p className="text-gray-400 mb-8">Join collectors worldwide using CardVault to manage their trading cards.</p>
-          <a href="/signup" className="inline-block px-10 py-4 bg-brand-red text-white font-semibold rounded-lg hover:bg-red-600 transition">
-            Create Free Account
-          </a>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-white/10">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <p className="text-gray-500">© 2025 CR AudioViz AI LLC. Part of Javari Collectors.</p>
-          <div className="flex gap-6">
-            <a href="https://craudiovizai.com" className="text-gray-400 hover:text-white">Main Site</a>
-            <a href="https://javariai.com" className="text-gray-400 hover:text-white">Javari AI</a>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
+"use client";
+// app/page.tsx — Javari Card Vault · CR AudioViz AI · EIN 39-3646201 · May 2026
+import { useState } from "react";
+const T=[{"i": "\ud83d\udce6", "l": "My Vault", "d": "Collection inventory", "h": "/vault"}, {"i": "\ud83d\udcb0", "l": "Market Value", "d": "Real-time card prices", "h": "/prices"}, {"i": "\ud83d\udd04", "l": "Trade Finder", "d": "Trade matching", "h": "/trades"}, {"i": "\ud83d\udcca", "l": "Portfolio", "d": "Collection analytics", "h": "/portfolio"}];
+export default function P() {
+  const [i,setI]=useState(""); const [o,setO]=useState(""); const [l,setL]=useState(false);
+  async function go() { if(!i.trim())return; setL(true);setO("");
+    try { const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:i}],stream:false,systemOverride:"You are a trading card expert."})});
+      const d=await r.json(); setO(d?.choices?.[0]?.message?.content||d?.content||"Error.");
+    } catch {setO("Error.");} setL(false); }
+  return (<div style={{minHeight:"100vh",background:"#040912",color:"#e2e8f0",fontFamily:"system-ui"}}>
+    <nav style={{background:"#1E3A5F",padding:"0 20px",height:52,display:"flex",alignItems:"center",justifyContent:"space-between",position:"sticky",top:0,zIndex:100}}>
+      <div style={{display:"flex",alignItems:"center",gap:8}}><span style={{fontSize:20}}>🃏</span><span style={{fontWeight:800,color:"#FF0800",fontSize:15}}>Javari Card Vault</span></div>
+      <a href="https://craudiovizai.com/auth/signup" style={{background:"#FF0800",color:"#fff",borderRadius:7,padding:"5px 14px",fontSize:12,fontWeight:700,textDecoration:"none"}}>Sign Up Free</a>
+    </nav>
+    <section style={{background:"linear-gradient(135deg,#1E3A5F,#040912)",padding:"48px 24px 40px",textAlign:"center"}}>
+      <h1 style={{fontSize:"clamp(22px,4vw,42px)",fontWeight:900,color:"#fff",margin:"0 0 10px",lineHeight:1.05}}>Card Vault<br/><span style={{color:"#FF0800"}}>Collection Manager</span></h1>
+      <p style={{color:"rgba(255,255,255,0.7)",fontSize:15,margin:0}}>Secure digital vault for your trading card collection.</p>
+    </section>
+    <section style={{maxWidth:700,margin:"0 auto",padding:"24px 20px 0"}}>
+      <div style={{background:"#0F1F32",border:"1px solid rgba(0,180,216,0.12)",borderRadius:14,padding:"18px 22px"}}>
+        <div style={{display:"flex",gap:8}}><input value={i} onChange={e=>setI(e.target.value)} onKeyDown={e=>e.key==="Enter"&&go()} placeholder="Help me track my collection value and find cards to trade" style={{flex:1,background:"#172D48",border:"1px solid rgba(0,180,216,0.15)",borderRadius:8,padding:"10px 12px",color:"#e2e8f0",fontSize:13,outline:"none",fontFamily:"system-ui"}}/>
+        <button onClick={go} disabled={l||!i.trim()} style={{background:l||!i.trim()?"#0F1F32":"#1E3A5F",color:l||!i.trim()?"#374151":"#FF0800",border:"1px solid rgba(0,180,216,0.2)",borderRadius:8,padding:"10px 18px",fontSize:13,fontWeight:700,cursor:l||!i.trim()?"not-allowed":"pointer",fontFamily:"system-ui"}}>{l?"...":"Go"}</button></div>
+        {o&&<pre style={{marginTop:12,padding:"12px",background:"rgba(0,180,216,0.05)",border:"1px solid rgba(0,180,216,0.1)",borderRadius:8,fontSize:13,color:"#e2e8f0",lineHeight:1.65,whiteSpace:"pre-wrap",fontFamily:"system-ui",maxHeight:300,overflowY:"auto",margin:"12px 0 0"}}>{o}</pre>}
+      </div>
+    </section>
+    <section style={{maxWidth:960,margin:"0 auto",padding:"28px 20px 64px"}}><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(190px,1fr))",gap:10}}>
+      {T.map((t:any)=>(<a key={t.h} href={t.h} style={{background:"#0F1F32",border:"1px solid rgba(0,180,216,0.08)",borderRadius:12,padding:"16px",textDecoration:"none",display:"block"}}><span style={{fontSize:24,display:"block",marginBottom:7}}>{t.i}</span><div style={{fontWeight:700,fontSize:13,color:"#e2e8f0",marginBottom:3}}>{t.l}</div><div style={{fontSize:11,color:"#6B7280",lineHeight:1.4}}>{t.d}</div></a>))}
+    </div></section>
+    <footer style={{borderTop:"1px solid rgba(0,180,216,0.08)",padding:"12px 24px",textAlign:"center"}}><p style={{color:"#374151",fontSize:11,margin:0}}>© 2026 CR AudioViz AI, LLC — EIN: 39-3646201</p></footer>
+  </div>);
 }
